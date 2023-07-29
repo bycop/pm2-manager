@@ -25,7 +25,6 @@ export const listMenu = new MenuTemplate<MyContext>(ctx => ctx.t('settings-langu
 function getAllProcess(): Promise<string[]> {
 	return axios.get(`${process.env['API_BASE_URL']}/pm2/processes`)
 		.then(response => {
-			console.log(response.data)
 			if (response.data.error || !response.data.data)
 				return []
 			const processes = response.data.data.map((process: any) => `${process.id}: ${process.name} (${process.state})`);
@@ -114,6 +113,8 @@ actionMenu.interact('Logs 📑', 'logs', {
 
 actionMenu.manualRow(createBackMainMenuButtons());
 
-menu.chooseIntoSubmenu('process', getAllProcess, actionMenu);
+menu.chooseIntoSubmenu('process', getAllProcess, actionMenu, {
+	columns: 3
+});
 
 menu.manualRow(backButtons);
