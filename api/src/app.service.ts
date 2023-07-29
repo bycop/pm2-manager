@@ -169,7 +169,7 @@ export class AppService {
         }
 
         resolve({
-          data: stdout,
+          data: stdout.slice(-4000),
         });
       });
     });
