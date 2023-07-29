@@ -1,9 +1,25 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Req, Res, Next, MiddlewareConsumer } from '@nestjs/common';
 import { AppService, Response } from './app.service';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
+
+  // Add middleware to check if request comes from localhost
+  private checkLocalhost(req, res, next) {
+    const isLocalhost = req.connection.remoteAddress === '127.0.0.1';
+    if (!isLocalhost) {
+      return res.status(403).send('Forbidden');
+    }
+    next();
+  }
+
+  // Apply middleware to all routes
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(this.checkLocalhost)
+      .forRoutes('*');
+  }
 
   @Get()
   getHello(): string {
