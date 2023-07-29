@@ -3,7 +3,6 @@ import {Bot, session} from 'grammy';
 import {config as dotenv} from 'dotenv';
 import {FileAdapter} from '@grammyjs/storage-file';
 import {generateUpdateMiddleware} from 'telegraf-middleware-console-time';
-import {html as format} from 'telegram-format';
 import {MenuMiddleware} from 'grammy-inline-menu';
 import {i18n} from '../translation.js';
 import {menu} from './menu/index.js';
