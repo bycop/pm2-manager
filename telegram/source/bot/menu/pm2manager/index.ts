@@ -27,7 +27,7 @@ function getAllProcess(): Promise<string[]> {
 		.then(response => {
 			if (response.data.error || !response.data.data)
 				return []
-			const processes = response.data.data.map((process: any) => `${process.id}: ${process.name} (${process.state})`);
+			const processes = response.data.data.map((process: any) => `${process.state === "online" ? "🟢" : "🔴"} ${process.id}: ${process.name}`);
 			return processes;
 		})
 		.catch(error => {
