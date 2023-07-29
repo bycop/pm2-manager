@@ -23,7 +23,7 @@ export const listMenu = new MenuTemplate<MyContext>(ctx => ctx.t('settings-langu
 // ]
 
 function getAllProcess(): Promise<string[]> {
-	return axios.get('http://localhost:3000/pm2/processes')
+	return axios.get(`${process.env['API_BASE_URL']}/pm2/processes`)
 		.then(response => {
 			console.log(response.data)
 			if (response.data.error || !response.data.data)
@@ -42,7 +42,7 @@ actionMenu.interact('Start 🟢', 'start', {
 	do: async ctx => {
 		console.log('Start this process', ctx.match);
 
-		await axios.get('http://localhost:3000/pm2/start/' + ctx.match?.[1]?.split(":")[0]).then(async (response) => {
+		await axios.get(`${process.env['API_BASE_URL']}/pm2/start/` + ctx.match?.[1]?.split(":")[0]).then(async (response) => {
 			if (response.data.error) {
 				await ctx.answerCallbackQuery('Error: ' + response.data.data);
 			} else {
@@ -60,7 +60,7 @@ actionMenu.interact('Restart 🔁', 'restart', {
 	do: async ctx => {
 		console.log('Restart this process', ctx.match);
 
-		await axios.get('http://localhost:3000/pm2/restart/' + ctx.match?.[1]?.split(":")[0]).then(async (response) => {
+		await axios.get(`${process.env['API_BASE_URL']}/pm2/restart/` + ctx.match?.[1]?.split(":")[0]).then(async (response) => {
 			if (response.data.error) {
 				await ctx.answerCallbackQuery('Error: ' + response.data.data);
 			} else {
@@ -78,7 +78,7 @@ actionMenu.interact('Stop 🔴', 'stop', {
 	do: async ctx => {
 		console.log('Stop this process', ctx.match);
 
-		await axios.get('http://localhost:3000/pm2/stop/' + ctx.match?.[1]?.split(":")[0]).then(async (response) => {
+		await axios.get(`${process.env['API_BASE_URL']}/pm2/stop/` + ctx.match?.[1]?.split(":")[0]).then(async (response) => {
 			if (response.data.error) {
 				await ctx.answerCallbackQuery('Error: ' + response.data.data);
 			} else {
@@ -96,7 +96,7 @@ actionMenu.interact('Logs 📑', 'logs', {
 	do: async ctx => {
 		console.log('Logs of process', ctx.match);
 
-		await axios.get('http://localhost:3000/pm2/logs/' + ctx.match?.[1]?.split(":")[0]).then(async (response) => {
+		await axios.get(`${process.env['API_BASE_URL']}/pm2/logs/` + ctx.match?.[1]?.split(":")[0]).then(async (response) => {
 			if (response.data.error) {
 				await ctx.answerCallbackQuery('Error: ' + response.data.data);
 			} else {
