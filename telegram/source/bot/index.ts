@@ -40,14 +40,6 @@ bot.command('help', async ctx => {
 	ctx.reply(ctx.t('help'))
 });
 
-bot.command('html', async ctx => {
-	let text = '';
-	text += format.bold('Some');
-	text += ' ';
-	text += format.spoiler('HTML');
-	await ctx.reply(text, {parse_mode: format.parse_mode});
-});
-
 bot.callbackQuery("delete-payload", async (ctx) => {
 	await ctx.deleteMessage();
   });
@@ -67,8 +59,6 @@ export async function start(): Promise<void> {
 	// The commands you set here will be shown as /commands like /start or /magic in your telegram client.
 	await bot.api.setMyCommands([
 		{command: 'start', description: 'open the menu'},
-		{command: 'magic', description: 'do magic'},
-		{command: 'html', description: 'some html _mode example'},
 		{command: 'help', description: 'show the help'},
 		{command: 'settings', description: 'open the settings'},
 	]);
