@@ -41,7 +41,7 @@ actionMenu.interact('Start 🟢', 'start', {
 	do: async ctx => {
 		console.log('Start this process', ctx.match);
 
-		await axios.get(`${process.env['API_BASE_URL']}/pm2/start/` + ctx.match?.[1]?.split(":")[0]).then(async (response) => {
+		await axios.get(`${process.env['API_BASE_URL']}/pm2/start/` + ctx.match?.[1]?.split(":")[0]?.split(" ")[1]).then(async (response) => {
 			if (response.data.error) {
 				await ctx.answerCallbackQuery('Error: ' + response.data.data);
 			} else {
@@ -59,7 +59,7 @@ actionMenu.interact('Restart 🔁', 'restart', {
 	do: async ctx => {
 		console.log('Restart this process', ctx.match);
 
-		await axios.get(`${process.env['API_BASE_URL']}/pm2/restart/` + ctx.match?.[1]?.split(":")[0]).then(async (response) => {
+		await axios.get(`${process.env['API_BASE_URL']}/pm2/restart/` + ctx.match?.[1]?.split(":")[0]?.split(" ")[1]).then(async (response) => {
 			if (response.data.error) {
 				await ctx.answerCallbackQuery('Error: ' + response.data.data);
 			} else {
@@ -77,7 +77,7 @@ actionMenu.interact('Stop 🔴', 'stop', {
 	do: async ctx => {
 		console.log('Stop this process', ctx.match);
 
-		await axios.get(`${process.env['API_BASE_URL']}/pm2/stop/` + ctx.match?.[1]?.split(":")[0]).then(async (response) => {
+		await axios.get(`${process.env['API_BASE_URL']}/pm2/stop/` + ctx.match?.[1]?.split(":")[0]?.split(" ")[1]).then(async (response) => {
 			if (response.data.error) {
 				await ctx.answerCallbackQuery('Error: ' + response.data.data);
 			} else {
@@ -95,13 +95,13 @@ actionMenu.interact('Logs 📑', 'logs', {
 	do: async ctx => {
 		console.log('Logs of process', ctx.match);
 
-		await axios.get(`${process.env['API_BASE_URL']}/pm2/logs/` + ctx.match?.[1]?.split(":")[0]).then(async (response) => {
+		await axios.get(`${process.env['API_BASE_URL']}/pm2/logs/` + ctx.match?.[1]?.split(":")[0]?.split(" ")[1]).then(async (response) => {
 			if (response.data.error) {
 				await ctx.answerCallbackQuery('Error: ' + response.data.data);
 			} else {
 				const inlineKeyboard = new InlineKeyboard().text("Delete", "delete-payload");
 
-				ctx.reply(`Logs of process ${ctx.match?.[1]?.split(":")[0]}:\n\n${response.data.data}`, { reply_markup: inlineKeyboard });
+				ctx.reply(`Logs of process ${ctx.match?.[1]?.split(":")[0]?.split(" ")[1]}:\n\n${response.data.data}`, { reply_markup: inlineKeyboard });
 			}
 		}).catch(async (error) => {
 			await ctx.answerCallbackQuery('Error: ' + error);
